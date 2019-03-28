@@ -14,29 +14,44 @@ public class AddComputerStepDefinitions {
     @Steps
     private DataMapper dataMapper;
     @Steps
-    private HomePage homePage;
-    @Steps
-    private AddComputer addComputer;
-    @Steps
     private HomePageStepDefinitions homePageStepDefinitions;
+
+    private HomePage homePage;
+    private AddComputer addComputer;
 
     @Given("^user is on add computer page$")
     public void AddNewComputerPage() {
-        homePageStepDefinitions.open();
+        homePageStepDefinitions.openHerokuAppHomePage();
         homePage.clickOnAddComputer();
         Assert.assertTrue(addComputer.validateAddPageIsOpened().contains("Add a computer"));
     }
 
     @When("^user enter the computer details to add$")
     public void enterComputerDetailsToAddNew() {
-        addComputer.enterName(dataMapper.getCreateComputerValueof("name"));
-        addComputer.enterIntroducedDate(dataMapper.getCreateComputerValueof("introducedDate"));
-        addComputer.enterDiscontinuedDate(dataMapper.getCreateComputerValueof("DiscontinuedDate"));
-        addComputer.selectCompany(dataMapper.getCreateComputerValueof("company"));
+        addComputer.enterName(getCreationName());
+        addComputer.enterIntroducedDate(getCreationIntroducedDate());
+        addComputer.enterDiscontinuedDate(getCreationDiscontinuedDate());
+        addComputer.selectCompany(getCreationCompany());
     }
 
     @And("^click on Add_Computer_Button$")
     public void clickOnAddComputer() {
         addComputer.clickOnCreate();
+    }
+
+    public String getCreationName() {
+        return dataMapper.getCreateComputerValueof("name");
+    }
+
+    public String getCreationIntroducedDate() {
+        return dataMapper.getCreateComputerValueof("introducedDate");
+    }
+
+    public String getCreationDiscontinuedDate() {
+        return dataMapper.getCreateComputerValueof("discontinuedDate");
+    }
+
+    public String getCreationCompany() {
+        return dataMapper.getCreateComputerValueof("company");
     }
 }

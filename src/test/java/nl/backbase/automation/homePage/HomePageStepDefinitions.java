@@ -3,6 +3,7 @@ package nl.backbase.automation.homePage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
+import nl.backbase.automation.addComputer.AddComputerStepDefinitions;
 import nl.backbase.automation.data_mappers.DataMapper;
 import nl.backbase.automation.pages.homePage.HomePage;
 import nl.backbase.automation.updateComputer.UpdateComputerStepDefinitions;
@@ -12,15 +13,17 @@ public class HomePageStepDefinitions {
     @Steps
     private DataMapper dataMapper;
     @Steps
-    private HomePage homePage;
+    private AddComputerStepDefinitions addComputerStepDefinitions;
     @Steps
     private UpdateComputerStepDefinitions updateComputerStepDefinitions;
+
+    private HomePage homePage;
 
 
     @Then("^User get the success message - Done! Computer Computer_name has been created$")
     public void validateTheAddSuccessMessage() {
         Assert.assertTrue(homePage.getAlertMessage().equals("Done!"));
-        String expectedMessage = "Computer " + dataMapper.getCreateComputerValueof("name") + " has been created";
+        String expectedMessage = "Computer " + addComputerStepDefinitions.getCreationName() + " has been created";
         Assert.assertTrue(homePage.getAlertMessage().contains(expectedMessage));
     }
 
@@ -28,16 +31,16 @@ public class HomePageStepDefinitions {
     public void validateNewEntryInTable() {
         homePage.enterSearchText(dataMapper.getCreateComputerValueof("name"));
         homePage.clickOnSearchButton();
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getCreateComputerValueof("name")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getCreateComputerValueof("introducedDate")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getCreateComputerValueof("DiscontinuedDate")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getCreateComputerValueof("company")));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(addComputerStepDefinitions.getCreationName()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(addComputerStepDefinitions.getCreationIntroducedDate()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(addComputerStepDefinitions.getCreationDiscontinuedDate()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(addComputerStepDefinitions.getCreationCompany()));
     }
 
     @Then("^User get the success message - Done! Computer Computer_name has been updated$")
     public void validateTheEditSuccessMessage() {
         Assert.assertTrue(homePage.getAlertMessage().equals("Done!"));
-        String expectedMessage = "Computer " + dataMapper.getUpdateComputerValueof("name") + " has been created";
+        String expectedMessage = "Computer " + updateComputerStepDefinitions.getUpdationName() + " has been created";
         Assert.assertTrue(homePage.getAlertMessage().equals(expectedMessage));
     }
 
@@ -45,10 +48,10 @@ public class HomePageStepDefinitions {
     public void validateEditedEntryInTable() {
         homePage.enterSearchText(dataMapper.getUpdateComputerValueof("name"));
         homePage.clickOnSearchButton();
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getUpdateComputerValueof("name")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getUpdateComputerValueof("introducedDate")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getUpdateComputerValueof("DiscontinuedDate")));
-        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(dataMapper.getUpdateComputerValueof("company")));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(updateComputerStepDefinitions.getUpdationName()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(updateComputerStepDefinitions.getUpdationIntroducedDate()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(updateComputerStepDefinitions.getUpdationDiscontinuedDate()));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().contains(updateComputerStepDefinitions.getUpdationCompany()));
     }
 
     @Then("^User get the success message - Done! Computer has been deleted$")
@@ -62,7 +65,7 @@ public class HomePageStepDefinitions {
         Assert.assertTrue(homePage.getNothingFoundMessage().contains("Nothing to display"));
     }
 
-    public void open(){
+    public void openHerokuAppHomePage() {
         String url = dataMapper.getConfigValueOf("url");
         homePage.openHerokuApp(url);
     }
