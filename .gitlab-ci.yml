@@ -1,0 +1,29 @@
+stages:
+  - test_automation
+  - deploy
+
+test_essent_release:
+  image: registry.gitlab.essent.nl/support/docker/gradle-chrome:latest
+  stage: test_automation
+  tags:
+      - shared
+  script:
+      - echo "Running Gradle build"
+      - gradlew clean test aggregate -DtestData=test -Dcucumber.options="--tags @ComplexComplaint"
+  artifacts:
+     paths:
+      - target/site/serenity/
+
+pages:
+   image: registry.gitlab.essent.nl/support/docker/gradle-chrome:latest
+   stage: deploy
+   dependencies:
+     - test_essent_release
+   script:
+     - mv target/site/serenity/ public/
+   artifacts:
+     paths:
+      - public
+   only:
+      - master
+   when: always
