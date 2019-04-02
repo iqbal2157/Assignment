@@ -26,7 +26,7 @@ All BDD test code (step definitions, runners) should be put in src/test/java and
 - Gherkin files (src/test/resources/features/)
 - Feature runner with cucumber config (src/test/java nl.backbase.automation.runnner)
 - Step definitions that implement the BDD steps (src/test/java nl.backbase.automation)
-- Most features will also target StepDefinitions shared among all features (src/test/java nl.essent.automation.shared)
+- Most features will also target StepDefinitions shared among all features (src/test/java nl.backbase.automation.shared)
 ```
 
 @CucumberOptions(
@@ -38,7 +38,7 @@ All BDD test code (step definitions, runners) should be put in src/test/java and
         /*
          * packages that contain step definitions
         */
-        glue = { "nl.essent.automation"}
+        glue = { "nl.backbase.automation"}
 )
 
 Here follows an example implementation:
