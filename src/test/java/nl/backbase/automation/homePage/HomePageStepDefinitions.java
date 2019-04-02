@@ -5,23 +5,33 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
 import nl.backbase.automation.data_mappers.DataMapper;
+import nl.backbase.automation.pages.addComputer.AddComputer;
 import nl.backbase.automation.pages.homePage.HomePage;
+import nl.backbase.automation.pages.updateComputer.UpdateComputer;
 import nl.backbase.automation.utils.ConsolePrinter;
+import nl.backbase.automation.utils.Utils;
 import org.junit.Assert;
+
+import java.text.ParseException;
 
 
 public class HomePageStepDefinitions {
 
     @Steps
     private DataMapper dataMapper;
+    @Steps
+    private Utils utils;
 
     private HomePage homePage;
+    private AddComputer addComputer;
+    private UpdateComputer updateComputer;
 
     @Given("^user is on add computer page$")
     public void open_add_computer_page(){
         String url= dataMapper.getConfigValueOf("url");
         homePage.openHerokuApp(url);
         homePage.clickOnAddComputer();
+        Assert.assertTrue(addComputer.validateAddPageIsOpened().contains("Add a computer"));
     }
 
     @Then("^User get the success message for creation$")
@@ -32,17 +42,17 @@ public class HomePageStepDefinitions {
     }
 
     @And("^user can see new entry in table with valid data$")
-    public void validate_new_computer_entry(){
+    public void validate_new_computer_entry() throws ParseException {
         String name = dataMapper.getCreateComputerValueof("name");
-//        String introducedDate = dataMapper.getCreateComputerValueof("introducedDate");
-//        String discontinueDate = dataMapper.getCreateComputerValueof("discontinuedDate");
+        String introducedDate = dataMapper.getCreateComputerValueof("introducedDate");
+        String discontinueDate = dataMapper.getCreateComputerValueof("discontinuedDate");
         String company = dataMapper.getCreateComputerValueof("company");
 
         homePage.enterSearchText(name);
         homePage.clickOnSearchButton();
 
-        ConsolePrinter.PrintToConsole(homePage.getFilteredComputerDetail());
-
+        Assert.assertTrue(homePage.getFilteredComputerDetail().toLowerCase().contains(utils.getDateFormated(introducedDate)));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().toLowerCase().contains(utils.getDateFormated(discontinueDate)));
         Assert.assertTrue(homePage.getFilteredComputerDetail().contains(name));
         Assert.assertTrue(homePage.getFilteredComputerDetail().contains(company));
 
@@ -58,6 +68,8 @@ public class HomePageStepDefinitions {
         homePage.clickOnSearchButton();
 
         homePage.openItem();
+
+        Assert.assertTrue(updateComputer.validateEditPageIsOpened().contains("Edit computer"));
     }
 
     @Then("^User get the success message for updation$")
@@ -69,17 +81,17 @@ public class HomePageStepDefinitions {
 
 
     @And("^user can see record in table with updated data$")
-    public void validate_updated_computer_details(){
+    public void validate_updated_computer_details() throws ParseException {
         String name = dataMapper.getUpdateComputerValueof("name");
-//        String introducedDate = dataMapper.getUpdateComputerValueof("introducedDate");
-//        String discontinueDate = dataMapper.getUpdateComputerValueof("discontinuedDate");
+        String introducedDate = dataMapper.getUpdateComputerValueof("introducedDate");
+        String discontinueDate = dataMapper.getUpdateComputerValueof("discontinuedDate");
         String company = dataMapper.getUpdateComputerValueof("company");
 
         homePage.enterSearchText(name);
         homePage.clickOnSearchButton();
 
-        ConsolePrinter.PrintToConsole(homePage.getFilteredComputerDetail());
-
+        Assert.assertTrue(homePage.getFilteredComputerDetail().toLowerCase().contains(utils.getDateFormated(introducedDate)));
+        Assert.assertTrue(homePage.getFilteredComputerDetail().toLowerCase().contains(utils.getDateFormated(discontinueDate)));
         Assert.assertTrue(homePage.getFilteredComputerDetail().contains(name));
         Assert.assertTrue(homePage.getFilteredComputerDetail().contains(company));
 
@@ -95,6 +107,8 @@ public class HomePageStepDefinitions {
         homePage.clickOnSearchButton();
 
         homePage.openItem();
+
+        Assert.assertTrue(updateComputer.validateEditPageIsOpened().contains("Edit computer"));
     }
 
     @Then("^User get the success message for deletion$")
