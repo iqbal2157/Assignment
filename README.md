@@ -1,11 +1,19 @@
 # Backbase assignment
 
-Test cases are saved in Assignment\test-sceanrios\Assignment_BB.xlsx
+Manual Test cases file is saved in Assignment\test-sceanrios\Assignment_BB.xlsx
 
-## Run project
+## Run project in OS window only
 ```
-gradlew clean test aggregate -DtestData=test
+command is :
+gradlew clean test aggregate -DtestData=test -Dcucumber.options="--tags @crud"
+
 ```
+To run the project in mac or linux please add the browse binary file accordingly.
+below is the command for mac and linux
+gradle clean test aggregate -DtestData=test -Dcucumber.options="--tags @crud"
+
+Report is saved in target folder and open the index.html file in browser
+Assignment\target\site\serenity\index.html
 
 ## Intro
 Serenity is an all in one solution for creating BDD tests. This repository 
