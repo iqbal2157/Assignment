@@ -1,9 +1,10 @@
 # Backbase assignment
 
+Test cases are saved in Assignment\test-sceanrios\Assignment_BB.xlsx
 
 ## Run project
 ```
-./gradlew clean test aggregate --rerun-tasks (optionals: -DtestData=test.json)
+gradlew clean test aggregate -DtestData=test
 ```
 
 ## Intro
