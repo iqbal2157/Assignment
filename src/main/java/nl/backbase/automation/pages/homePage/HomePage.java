@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.concurrent.TimeUnit;
+
 public class HomePage extends PageObject {
     @FindBy(xpath = "//a[@id='add']")
     private WebElement btn_addNewComputer;
@@ -32,7 +34,7 @@ public class HomePage extends PageObject {
     }
 
     public String getFilteredComputerDetail() {
-        return getDriver().findElement(By.xpath("//table[contains(@class, 'computers')]//tr")).getText();
+        return getDriver().findElement(By.xpath("(//table[contains(@class, 'computers')]//tr)[2]")).getText();
     }
 
     public void openItem() {
@@ -40,6 +42,7 @@ public class HomePage extends PageObject {
     }
 
     public String getAlertMessage() {
+        getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         return getDriver().findElement(By.xpath("//section[@id='main']//div[contains(@class, 'alert-message')]")).getText();
     }
 

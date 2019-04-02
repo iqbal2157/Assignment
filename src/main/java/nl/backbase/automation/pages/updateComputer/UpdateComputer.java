@@ -23,15 +23,18 @@ public class UpdateComputer extends PageObject {
     }
 
     public void enterName(String name) {
+        input_name.clear();
         input_name.sendKeys(name);
     }
 
     public void enterIntroducedDate(String date) {
-        input_name.sendKeys(date);
+        input_introduced.clear();
+        input_introduced.sendKeys(date);
     }
 
     public void enterDiscontinuedDate(String date) {
-        input_name.sendKeys(date);
+        input_discontinued.clear();
+        input_discontinued.sendKeys(date);
     }
 
     public void selectCompany(String name) {

@@ -5,53 +5,32 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 import nl.backbase.automation.data_mappers.DataMapper;
-import nl.backbase.automation.homePage.HomePageStepDefinitions;
 import nl.backbase.automation.pages.addComputer.AddComputer;
 import nl.backbase.automation.pages.homePage.HomePage;
-import org.junit.Assert;
 
 public class AddComputerStepDefinitions {
+
     @Steps
     private DataMapper dataMapper;
-    @Steps
-    private HomePageStepDefinitions homePageStepDefinitions;
 
     private HomePage homePage;
     private AddComputer addComputer;
 
-    @Given("^user is on add computer page$")
-    public void AddNewComputerPage() {
-        homePageStepDefinitions.openHerokuAppHomePage();
-        homePage.clickOnAddComputer();
-        Assert.assertTrue(addComputer.validateAddPageIsOpened().contains("Add a computer"));
-    }
-
     @When("^user enter the computer details to add$")
-    public void enterComputerDetailsToAddNew() {
-        addComputer.enterName(getCreationName());
-        addComputer.enterIntroducedDate(getCreationIntroducedDate());
-        addComputer.enterDiscontinuedDate(getCreationDiscontinuedDate());
-        addComputer.selectCompany(getCreationCompany());
+    public void enter_new_computer_details(){
+        String name = dataMapper.getCreateComputerValueof("name");
+        String introducedDate = dataMapper.getCreateComputerValueof("introducedDate");
+        String discontinueDate = dataMapper.getCreateComputerValueof("discontinuedDate");
+        String company = dataMapper.getCreateComputerValueof("company");
+
+        addComputer.enterName(name);
+        addComputer.enterIntroducedDate(introducedDate);
+        addComputer.enterDiscontinuedDate(discontinueDate);
+        addComputer.selectCompany(company);
     }
 
     @And("^click on Add_Computer_Button$")
-    public void clickOnAddComputer() {
+    public void click_on_add_button(){
         addComputer.clickOnCreate();
-    }
-
-    public String getCreationName() {
-        return dataMapper.getCreateComputerValueof("name");
-    }
-
-    public String getCreationIntroducedDate() {
-        return dataMapper.getCreateComputerValueof("introducedDate");
-    }
-
-    public String getCreationDiscontinuedDate() {
-        return dataMapper.getCreateComputerValueof("discontinuedDate");
-    }
-
-    public String getCreationCompany() {
-        return dataMapper.getCreateComputerValueof("company");
     }
 }

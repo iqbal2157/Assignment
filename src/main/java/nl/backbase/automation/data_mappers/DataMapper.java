@@ -16,6 +16,4 @@ public class DataMapper {
     public String getUpdateComputerValueof(String key) {
         return (String) DataFactory.get(key, "computerDetails", "update", key);
     }
-
-
 }

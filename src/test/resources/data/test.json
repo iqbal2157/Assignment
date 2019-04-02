@@ -4,13 +4,13 @@
   },
   "computerDetails": {
     "create": {
-      "name": "Backbase Automation",
+      "name": "Backbase Automation demo test",
       "introducedDate": "2019-12-12",
       "discontinuedDate": "2020-12-12",
       "company": "Apple Inc."
     },
     "update": {
-      "name": "Backbase Automation - update",
+      "name": "Backbase Automation demo updated",
       "introducedDate": "2019-11-12",
       "discontinuedDate": "2020-11-12",
       "company": "Thinking Machines"

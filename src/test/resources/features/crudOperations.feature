@@ -5,7 +5,7 @@ Feature: CRUD operations
     Given user is on add computer page
     When user enter the computer details to add
     And click on Add_Computer_Button
-    Then User get the success message - Done! Computer Computer_name has been created
+    Then User get the success message for creation
     And user can see new entry in table with valid data
 
   @crud @update
@@ -13,12 +13,12 @@ Feature: CRUD operations
     Given user is on Update computer page
     When user enter the computer details to edit
     And click on Update_This_Computer_Button
-    Then User get the success message - Done! Computer Computer_name has been updated
+    Then User get the success message for updation
     And user can see record in table with updated data
 
   @crud @delete
   Scenario: Check Deletion
     Given user is on Delete computer page
     When click on Delete_This_Computer_Button
-    Then User get the success message - Done! Computer has been deleted
-    And user don't see deleted record anymore
+    Then User get the success message for deletion
+    And user do not see deleted record anymore
